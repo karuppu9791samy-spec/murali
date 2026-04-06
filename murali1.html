@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Murali K | Creative Developer</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Garamond', 'Georgia', serif; /* More sophisticated font */
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #050508; /* Deeper midnight blue/black */
+      color: #f0e6d2; /* Soft cream/gold text */
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* HERO */
+    #hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      letter-spacing: 8px;
+      font-weight: 300;
+      text-transform: uppercase;
+      color: #d4af37; /* Gold */
+      text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+      opacity: 0.6;
+      margin-top: 15px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+    }
+
+    /* SECTIONS */
+    section {
+      position: relative;
+      padding: 120px 15%;
+      z-index: 2;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #d4af37;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ABOUT */
+    .about-text {
+      max-width: 700px;
+      font-size: 1.2rem;
+      color: #bfa880;
+      border-left: 1px solid #d4af37;
+      padding-left: 30px;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03); /* Glassmorphism */
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 2px; /* Sharp, modern edges */
+      padding: 40px;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card:hover {
+      background: rgba(212, 175, 55, 0.05);
+      border-color: #d4af37;
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .tech-stack {
+      margin-top: 20px;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      color: #d4af37;
+    }
+
+    /* CONTACT */
+    .contact {
+      text-align: center;
+      padding-bottom: 200px;
+    }
+
+    .email-link {
+      color: #fff;
+      text-decoration: none;
+      font-size: 2rem;
+      border-bottom: 1px solid #d4af37;
+      transition: 0.3s;
+    }
+
+    .email-link:hover {
+      color: #d4af37;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <section id="hero">
+    <canvas id="canvas"></canvas>
+    <div class="hero-content">
+      <h1>MURALI K</h1>
+      <p>Frontend Craftsmanship</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>The Vision</h2>
+    <div class="about-text">
+      <p>B.Sc IT graduate specializing in high-end digital experiences.</p>
+      <p>I believe code is a medium for art. By blending technical precision with creative curiosity, I build interfaces that feel as good as they look.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Portfolio</h2>
+    <div class="projects-grid">
+      <div class="card">
+        <h3>Celestial UI Kit</h3>
+        <p>A library of components designed for cosmic-themed applications.</p>
+        <div class="tech-stack">VUE • WEBGL</div>
+      </div>
+      <div class="card">
+        <h3>Golden Ratio Engine</h3>
+        <p>A layout tool that automatically generates perfect proportions for web designs.</p>
+        <div class="tech-stack">TYPESCRIPT • MATH.JS</div>
+      </div>
+      <div class="card">
+        <h3>Nebula Dash</h3>
+        <p>Real-time data streaming visualized as floating light particles.</p>
+        <div class="tech-stack">REDUX • THREE.JS</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Inquiries</h2>
+    <a href="mailto:murali.k@email.com" class="email-link">murali.k@email.com</a>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera.position.z = 4;
+
+    const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Nebula Particles
+    const geometry = new THREE.BufferGeometry();
+    const count = 3000;
+    const pos = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
+
+    for(let i=0; i<count*3; i+=3){
+      pos[i] = (Math.random() - 0.5) * 12;
+      pos[i+1] = (Math.random() - 0.5) * 12;
+      pos[i+2] = (Math.random() - 0.5) * 12;
+
+      // Mix of gold and purple/blue colors for the "Nebula" look
+      colors[i] = 0.8 + Math.random() * 0.2; // R
+      colors[i+1] = 0.6 + Math.random() * 0.2; // G
+      colors[i+2] = 0.2 + Math.random() * 0.5; // B
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.015,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.6
+    });
+
+    const starField = new THREE.Points(geometry, material);
+    scene.add(starField);
+
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener("mousemove", (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5);
+      mouseY = (e.clientY / window.innerHeight - 0.5);
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      starField.rotation.y += 0.0005;
+      starField.rotation.z += 0.0002;
+
+      camera.position.x += (mouseX - camera.position.x) * 0.05;
+      camera.position.y += (-mouseY - camera.position.y) * 0.05;
+      camera.lookAt(scene.position);
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
